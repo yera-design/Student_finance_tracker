@@ -1,0 +1,229 @@
+/*this is for removing browser spacing and make sizing more predictable*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Setting the main font, text color, and comfortable line spacing for readability */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #222;
+}
+/* this hides the skip link off-screen until it receives keyboard focus */
+a[href="#main"] {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #000;
+  color: #fff;
+  padding: 10px;
+}
+/* this makes the skip link visible when a keyboard user tabs to it */
+a[href="#main"]:focus {
+  left: 10px;
+}
+/*This is for styling the page header*/
+header {
+  background:darkolivegreen;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;}
+/*this removes bullet points and set the navigation background color*/
+nav ul {
+  list-style: none;
+  background: darkolivegreen;
+}
+/* this adds separation between nav items on small screens.*/
+nav li {
+  border-bottom: 1px solid darkolivegreen;
+}
+/*this make nav links fill the available space for easier clicking. */
+nav a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+}
+/* this provides visual feedback when user hovers over a menu item */
+nav a:hover {
+  background:  #2c3e50;
+}
+/* this is for switching nav links to an horizontal layout on larger screens */
+@media (min-width: 768px) {
+  nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+/*this adds spacing around each content section and a light border to separate them visually */
+section {
+  padding: 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+/*this styles headings to make them stand out. */
+section h2 {
+  margin-bottom: 1rem;
+  color: darkolivegreen;
+}
+/* this places form labels above their related inputs. */
+form label {
+  display: block;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+/* this gives form fields a clean and consistent appearance. */
+form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/* this styles form buttons */
+form button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: darkolivegreen;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* this changes button color when hovered over */
+form button:hover {
+  background: #2c3e50;
+}
+/* this makes the records table span the available width */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+/* this adds spacing and borders to table cells for readability */
+th, 
+td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+/* this highlights the table header row */
+thead {
+  background: darkolivegreen;
+  color: #fff;
+}
+/* this enables horizontal scrolling if the table becomes too wide */
+section#records {
+  overflow-x: auto;
+}
+/* this styles the search input used to filter records */
+#search-records {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/* applying shared styling for the sorting buttons */
+#sort-date,
+#sort-description,
+#sort-amount {
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid darkolivegreen;
+  background: #fff;
+  color: darkolivegreen;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* this inverts colors when a sorting button is hovered */
+#sort-date:hover,
+#sort-description:hover,
+#sort-amount:hover {
+  background: darkolivegreen;
+  color: #fff;
+}
+/* Arranging settings labels clearly above their inputs */
+#settings label {
+  display: block;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+/* Styling settings input fields consistently */
+#settings input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/* Styling the import and export action buttons */
+#export-json,
+#import-json {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  background: darkolivegreen;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* this changes button color on hover for better interaction feedback */
+#export-json:hover,
+#import-json:hover {
+  background: #2c3e50;
+}
+/* this stacks dashboard summary cards vertically by default */
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* this styles dashboard summary cards */
+#dashboard p {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-left: 4px solid darkolivegreen;
+  border-radius: 4px;
+}
+/* Adding smooth hover and interaction transitions */
+nav a,
+form button,
+#sort-date,
+#sort-description,
+#sort-amount,
+#export-json,
+#import-json {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+/* Making focused elements clearly visible for keyboard users */
+a:focus,
+button:focus,
+input:focus {
+  outline: 3px solid darkolivegreen;
+  outline-offset: 2px;
+}
+/* Adjusting spacing and heading size for very small screens */
+@media (max-width: 360px) {
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  section {
+    padding: 1rem;
+  }
+}
+/* this displays dashboard cards side by side on larger screens */
+@media (min-width: 1024px) {
+  #dashboard {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  #dashboard p {
+    flex: 1;
+  }
+}
