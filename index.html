@@ -4,9 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Finance Tracker</title>
-    <link rel = "stylesheet" href = "style.css">
+    <link rel = "stylesheet" href = "styles/style.css">
 </head>
 <body>
-    
-</body>
+    <!-- skip link so people using keyboard/screen readers don't have to tab through all the nav links every time -->
+    <a href="#main">Skip to main content</a>
+    <header> <h1>Student Finance Tracker</h1> </header>
+<!-- nav links, each one jumps to a section below using the matching id -->
+<nav>
+    <ul> 
+    <li><a href="#about">About</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#records">Records</a></li>
+    <li><a href="#add-edit">Add/Edit</a></li>
+    <li><a href="#settings">Settings</a></li>
+    </ul>
+</nav>
+<main id = "main">
+    <!-- about section - what this app is for and how to contact me -->
+    <section id = "about">
+        <h2>About</h2>
+        <p>As a student, it's easy to lose track of where your money goes each month. This app lets you log your expenses, organize them by category, and check your spending against a budget so you don't run out of cash before the month ends.</p>
+        <p>If you have any questions or feedback, feel free to contact me:</p>
+        <ul>
+            <li>Email: <a href="mailto:p.yera@alustudent.com">p.yera@alustudent.com</a></li>
+            <li>Github: <a href="https://github.com/yera-design">yera-design</a></li>
+        </ul>
+    </section>
+
+    <section id = "dashboard"> 
+        <h2>Dashboard</h2>
+        <p> Total Records: <span id="total-records">0</span></p>
+        <p> Total Spent: <span id="total-expenses">0.00</span></p>
+        <p> Top category: <span id="top-category">None</span></p>
+        <p>Last 7 Days Trend: <span id="trend-placeholder">Coming soon</span></p>
+        <p id="cap-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id = "records">
+        <h2>Records</h2>
+        <label for="search-records">Search records:</label>
+        <input type="text" id="search-records" placeholder="e.g. coffee">
+        <!--Adding sort buttons-->
+        <button type="button" id="sort-date">Sort by Date</button>
+        <button type="button" id="sort-description">Sort by Description</button>
+        <button type="button" id="sort-amount">Sort by Amount</button>
+    <table id="records-table">
+        <thead>
+            <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    <!-- JS will add one <tr> per record here, each with Edit/Delete buttons in the Actions column -->
+  </tbody>
+</table>
+
+    </section>
+
+    <section id = "add-edit">
+        <h2>Add/Edit</h2>
+    <form id="record-form">
+        <label for="description">Description:</label>
+        <input type="text" id="description" required>
+
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" required>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" required>
+
+        <label for="date">Date:</label>
+        <input type="text" id="date" required>
+
+        <button type="submit">Save</button>
+    </form>
+    </section>
+
+    <section id = "settings">
+        <h2>Settings</h2>
+        <label for="spending-cap">Spending Cap:</label>
+        <input type="text" id="spending-cap">
+
+        <label for="currency-rate-1">USD TO RWF Rate:</label>
+        <input type="text" id="currency-rate-1">
+
+        <label for="currency-rate-2">USD TO EUR Rate:</label>
+        <input type="text" id="currency-rate-2">
+
+        <button type="button" id="export-json">Export JSON</button>
+        <button type="button" id="import-json">Import JSON</button>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Yera. Built for Web Dev Summative — Student Finance Tracker.</p>   
+</footer>
+<script src="scripts/script.js"></script>
+</body> 
 </html>
