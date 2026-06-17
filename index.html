@@ -21,7 +21,7 @@
     </ul>
 </nav>
 <main id = "main">
-    <!-- about section - what this app is for and how to contact me -->
+    <!-- about section tells the user what this app is for and how to contact me -->
     <section id = "about">
         <h2>About</h2>
         <p>As a student, it's easy to lose track of where your money goes each month. This app lets you log your expenses, organize them by category, and check your spending against a budget so you don't run out of cash before the month ends.</p>
@@ -38,6 +38,7 @@
         <p> Total Spent: <span id="total-expenses">0.00</span></p>
         <p> Top category: <span id="top-category">None</span></p>
         <p>Last 7 Days Trend: <span id="trend-placeholder">Coming soon</span></p>
+        <!-- this announces to screen readers when the spending cap is reached -->
         <p id="cap-message" role="status" aria-live="polite"></p>
     </section>
 
@@ -45,12 +46,13 @@
         <h2>Records</h2>
         <label for="search-records">Search records:</label>
         <input type="text" id="search-records" placeholder="e.g. coffee">
-        <!--Adding sort buttons-->
+        <!--These buttons allow users to sort the records table by different criteria-->
         <button type="button" id="sort-date">Sort by Date</button>
         <button type="button" id="sort-description">Sort by Description</button>
         <button type="button" id="sort-amount">Sort by Amount</button>
     <table id="records-table">
         <thead>
+            <!-- scope="col" tells screen readers which header applies to each column -->
             <tr>
                 <th scope="col">Description</th>
                 <th scope="col">Amount</th>
@@ -68,6 +70,7 @@
 
     <section id = "add-edit">
         <h2>Add/Edit</h2>
+    <!--this form is used dor both adding new records and edit existing ones-->    
     <form id="record-form">
         <label for="description">Description:</label>
         <input type="text" id="description" required>
