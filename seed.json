@@ -1,0 +1,110 @@
+[
+  {
+    "id": "txn_1001",
+    "description": "Lunch at cafeteria",
+    "amount": 12.50,
+    "category": "Food",
+    "date": "2026-06-18",
+    "createdAt": "2026-06-18T11:30:00.000Z",
+    "updatedAt": "2026-06-18T11:30:00.000Z"
+  },
+  {
+    "id": "txn_1002",
+    "description": "Chemistry textbook",
+    "amount": 89.99,
+    "category": "Books",
+    "date": "2026-06-17",
+    "createdAt": "2026-06-17T09:00:00.000Z",
+    "updatedAt": "2026-06-17T09:00:00.000Z"
+  },
+  {
+    "id": "txn_1003",
+    "description": "Bus pass for June",
+    "amount": 45.00,
+    "category": "Transport",
+    "date": "2026-06-16",
+    "createdAt": "2026-06-16T08:00:00.000Z",
+    "updatedAt": "2026-06-16T08:00:00.000Z"
+  },
+  {
+    "id": "txn_1004",
+    "description": "Coffee with friends",
+    "amount": 8.75,
+    "category": "Entertainment",
+    "date": "2026-06-15",
+    "createdAt": "2026-06-15T15:00:00.000Z",
+    "updatedAt": "2026-06-15T15:00:00.000Z"
+  },
+  {
+    "id": "txn_1005",
+    "description": "Tuition fees payment",
+    "amount": 500.00,
+    "category": "Fees",
+    "date": "2026-06-14",
+    "createdAt": "2026-06-14T10:00:00.000Z",
+    "updatedAt": "2026-06-14T10:00:00.000Z"
+  },
+  {
+    "id": "txn_1006",
+    "description": "Breakfast at the canteen",
+    "amount": 3.50,
+    "category": "Food",
+    "date": "2026-06-13",
+    "createdAt": "2026-06-13T07:30:00.000Z",
+    "updatedAt": "2026-06-13T07:30:00.000Z"
+  },
+  {
+    "id": "txn_1007",
+    "description": "Movie night ticket",
+    "amount": 15.00,
+    "category": "Entertainment",
+    "date": "2026-06-12",
+    "createdAt": "2026-06-12T20:00:00.000Z",
+    "updatedAt": "2026-06-12T20:00:00.000Z"
+  },
+  {
+    "id": "txn_1008",
+    "description": "Notebook and pens",
+    "amount": 7.25,
+    "category": "Books",
+    "date": "2026-06-18",
+    "createdAt": "2026-06-18T14:00:00.000Z",
+    "updatedAt": "2026-06-18T14:00:00.000Z"
+  },
+  {
+    "id": "txn_1009",
+    "description": "Uber ride to campus",
+    "amount": 0.99,
+    "category": "Transport",
+    "date": "2026-06-17",
+    "createdAt": "2026-06-17T06:00:00.000Z",
+    "updatedAt": "2026-06-17T06:00:00.000Z"
+  },
+  {
+    "id": "txn_1010",
+    "description": "Miscellaneous supplies",
+    "amount": 1250.00,
+    "category": "Other",
+    "date": "2026-06-15",
+    "createdAt": "2026-06-15T12:00:00.000Z",
+    "updatedAt": "2026-06-15T12:00:00.000Z"
+  },
+  {
+    "id": "txn_1011",
+    "description": "Tea and snacks",
+    "amount": 4.20,
+    "category": "Food",
+    "date": "2026-06-16",
+    "createdAt": "2026-06-16T10:00:00.000Z",
+    "updatedAt": "2026-06-16T10:15:00.000Z"
+  },
+  {
+    "id": "txn_1012",
+    "description": "Registration fees",
+    "amount": 75.00,
+    "category": "Fees",
+    "date": "2026-06-13",
+    "createdAt": "2026-06-13T09:00:00.000Z",
+    "updatedAt": "2026-06-13T09:00:00.000Z"
+  }
+]

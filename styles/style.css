@@ -9,6 +9,7 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.5;
   color: #222;
+  background: #f0f2f5;
 }
 /* this hides the skip link off-screen until it receives keyboard focus */
 a[href="#main"] {
@@ -25,18 +26,23 @@ a[href="#main"]:focus {
 }
 /*This is for styling the page header*/
 header {
-  background:darkolivegreen;
+  background: darkolivegreen;
   color: #fff;
-  padding: 1rem;
-  text-align: center;}
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 /*this removes bullet points and set the navigation background color*/
 nav ul {
   list-style: none;
-  background: darkolivegreen;
+  background: transparent;
+  display: flex;
+  gap: 1.5rem;
 }
 /* this adds separation between nav items on small screens.*/
 nav li {
-  border-bottom: 1px solid darkolivegreen;
+  border-bottom: none;
 }
 /*this make nav links fill the available space for easier clicking. */
 nav a {
@@ -60,7 +66,11 @@ nav a:hover {
 /*this adds spacing around each content section and a light border to separate them visually */
 section {
   padding: 1.5rem;
-  border-bottom: 1px solid #ddd;
+  margin: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid #ccc;
+  background: #fff;
 }
 /*this styles headings to make them stand out. */
 section h2 {
@@ -76,13 +86,14 @@ form label {
 }
 /* this gives form fields a clean and consistent appearance. */
 form input {
-  width: 100%;
+  width: 60%;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 /* this styles form buttons */
 form button {
+  display: block;
   margin-top: 1rem;
   padding: 0.5rem 1.5rem;
   background: darkolivegreen;
@@ -177,10 +188,8 @@ section#records {
   background: #2c3e50;
 }
 /* this stacks dashboard summary cards vertically by default */
-#dashboard {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+#dashboard h2 {
+  width: 100%;
 }
 /* this styles dashboard summary cards */
 #dashboard p {
@@ -216,14 +225,166 @@ input:focus {
     padding: 1rem;
   }
 }
-/* this displays dashboard cards side by side on larger screens */
-@media (min-width: 1024px) {
-  #dashboard {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+/* dark mode styles applied when body has dark-mode class */
+body.dark-mode {
+  background: #1a1a1a;
+  color: #f0f0f0;
+}
 
-  #dashboard p {
-    flex: 1;
-  }
+body.dark-mode header {
+  background: #1a1a1a;
+}
+
+body.dark-mode nav ul {
+  background: #2a2a2a;
+}
+
+body.dark-mode section {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+body.dark-mode #dashboard p {
+  background: #2a2a2a;
+}
+
+body.dark-mode table {
+  color: #f0f0f0;
+}
+
+body.dark-mode td {
+  border-bottom: 1px solid #333;
+}
+body.dark-mode #trend-chart h3 {
+  color: #a8c060;
+}
+/* this makes about text visible in dark mode */
+body.dark-mode #about p {
+  color: #f0f0f0;
+}
+body.dark-mode .section-heading {
+  color: #a8c060;
+  border-left-color: #a8c060;
+}
+body.dark-mode form input,
+body.dark-mode #settings input,
+body.dark-mode #search-records {
+  background: #2a2a2a;
+  color: #f0f0f0;
+  border: 1px solid #444;
+}
+/* styles convert buttons to match the app's button design */
+#convert-rwf,
+#convert-eur {
+  padding: 0.4rem 0.8rem;
+  background: darkolivegreen;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#convert-rwf:hover,
+#convert-eur:hover {
+  background: #2c3e50;
+}
+/* styles the save settings button to match other buttons */
+#save-settings {
+  padding: 0.5rem 1rem;
+  background: darkolivegreen;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#save-settings:hover {
+  background: #2c3e50;
+}
+/* makes stat cards sit side by side inside the dashboard */
+#stat-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#stat-cards p {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-left: 4px solid darkolivegreen;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 150px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+/* dashboard uses block layout so stat cards and trend stack vertically */
+#dashboard {
+  display: block;
+}
+
+/* encloses the trend chart in a card */
+#trend-chart {
+  background: #f4f4f4;
+  border-left: 4px solid darkolivegreen;
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+/* styles the theme dropdown to match the app's input design */
+#theme-toggle {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fff;
+  color: #222;
+}
+
+#theme-toggle:focus {
+  outline: 3px solid darkolivegreen;
+  outline-offset: 2px;
+}
+/* this centers footer text */
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+body.dark-mode #trend-chart {
+  background: #555;
+  color: #f0f0f0;
+}
+/* styles settings subheadings with a left border accent */
+#settings .section-heading {
+  font-weight: bold;
+  font-size: 1rem;
+  border-left: 4px solid darkolivegreen;
+  padding-left: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: darkolivegreen;
+}
+
+body.dark-mode #settings .section-heading {
+  color: #a8c060;
+  border-left-color: #a8c060;
+}
+/* this styles the trend chart heading */
+#trend-chart h3 {
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: black;
+  border-left: 4px solid darkolivegreen;
+  padding-left: 0.5rem;
+  margin-bottom: 0.5rem;
 }

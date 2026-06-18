@@ -135,11 +135,55 @@ document.getElementById("sort-amount").addEventListener("click", function() {
   renderRecords();
 });
 
-// this applies the spending cap when the user clicks Save Settings
+// this validates the spending cap before saving and warns if empty or invalid
 document.getElementById("save-settings").addEventListener("click", function() {
+  const capValue = document.getElementById("spending-cap").value.trim();
+  if (!capValue) {
+    alert("Please enter a spending cap amount.");
+    return;
+  }
+  if (isNaN(parseFloat(capValue)) || parseFloat(capValue) <= 0) {
+    alert("Please enter a valid positive number for your spending cap.");
+    return;
+  }
   updateDashboard();
-  alert("saved!");
+  alert("Settings saved!");
 });
+// this converts USD to RWF using the rate the user entered
+document.getElementById("convert-rwf").addEventListener("click", function() {
+  const amount = parseFloat(document.getElementById("convert-amount").value);
+  const rate = parseFloat(document.getElementById("currency-rate-1").value);
+  if (isNaN(amount) || isNaN(rate)) {
+    alert("Please enter valid numbers for amount and rate.");
+    return;
+  }
+  document.getElementById("rwf-result").textContent = (amount * rate).toFixed(2) + " RWF";
+});
+
+// this converts USD to EUR using the rate the user entered
+document.getElementById("convert-eur").addEventListener("click", function() {
+  const amount = parseFloat(document.getElementById("convert-amount-eur").value);
+  const rate = parseFloat(document.getElementById("currency-rate-2-eur").value);
+  if (isNaN(amount) || isNaN(rate)) {
+    alert("Please enter valid numbers for amount and rate.");
+    return;
+  }
+  document.getElementById("eur-result").textContent = (amount * rate).toFixed(2) + " EUR";
+});
+
+/// this switches theme based on dropdown selection and saves the preference
+document.getElementById("theme-toggle").addEventListener("change", function() {
+  const isDark = this.value === "dark";
+  document.body.classList.toggle("dark-mode", isDark);
+  localStorage.setItem("theme", this.value);
+});
+
+// this loads saved theme preference on page load
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") {
+  document.body.classList.add("dark-mode");
+  document.getElementById("theme-toggle").value = "dark";
+}
 // this exports all records as a downloadable JSON file
 document.getElementById("export-json").addEventListener("click", function() {
   const data = JSON.stringify(records, null, 2);
