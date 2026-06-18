@@ -138,7 +138,55 @@ document.getElementById("sort-amount").addEventListener("click", function() {
 // this applies the spending cap when the user clicks Save Settings
 document.getElementById("save-settings").addEventListener("click", function() {
   updateDashboard();
-  alert("Settings saved!");
+  alert("saved!");
+});
+// this exports all records as a downloadable JSON file
+document.getElementById("export-json").addEventListener("click", function() {
+  const data = JSON.stringify(records, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "finance-tracker-export.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// this imports records from a JSON file, validates structure, then loads them
+document.getElementById("import-json").addEventListener("click", function() {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+  input.addEventListener("change", function() {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (!Array.isArray(imported)) {
+          alert("Invalid file: expected an array of records.");
+          return;
+        }
+        const valid = imported.every(function(r) {
+          return r.id && r.description && r.amount && r.category && r.date;
+        });
+        if (!valid) {
+          alert("Invalid file: some records are missing required fields.");
+          return;
+        }
+        records = imported;
+        saveRecords(records);
+        renderRecords();
+        updateDashboard();
+        alert("Records imported successfully!");
+      } catch {
+        alert("Failed to read file. Make sure it is a valid JSON file.");
+      }
+    };
+    reader.readAsText(file);
+  });
+  input.click();
 });
 // this displays all saved records in the table
 function renderRecords() {
