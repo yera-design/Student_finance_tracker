@@ -304,21 +304,44 @@ function updateDashboard() {
     }
   }
   document.getElementById("top-category").textContent = topCategory;
-  // this checks spending against the cap and announces the result to screen readers
-const cap = parseFloat(document.getElementById("spending-cap").value);
-const capMessage = document.getElementById("cap-message");
+// this checks spending against the cap and announces the result to screen readers
+  const cap = parseFloat(document.getElementById("spending-cap").value);
+  const capMessage = document.getElementById("cap-message");
 
-if (!isNaN(cap) && cap > 0) {
-  const remaining = cap - totalSpent;
-  if (remaining < 0) {
-    capMessage.setAttribute("aria-live", "assertive");
-    capMessage.textContent = "You have exceeded your budget by $" + Math.abs(remaining).toFixed(2);
+  if (!isNaN(cap) && cap > 0) {
+    const remaining = cap - totalSpent;
+    if (remaining < 0) {
+      capMessage.setAttribute("aria-live", "assertive");
+      capMessage.textContent = "You have exceeded your budget by $" + Math.abs(remaining).toFixed(2);
+    } else {
+      capMessage.setAttribute("aria-live", "polite");
+      capMessage.textContent = "You have $" + remaining.toFixed(2) + " remaining this month.";
+    }
   } else {
-    capMessage.setAttribute("aria-live", "polite");
-    capMessage.textContent = "You have $" + remaining.toFixed(2) + " remaining this month.";
+    capMessage.textContent = "";
   }
-} else {
-  capMessage.textContent = "";
+
+  updateTrend();
 }
 
+// this builds a simple bar chart showing spending for each of the last 7 days
+function updateTrend() {
+  const trendEl = document.getElementById("trend-placeholder");
+  const today = new Date();
+  let html = "";
+
+  for (let i = 6; i >= 0; i--) {
+    const day = new Date(today);
+    day.setDate(today.getDate() - i);
+    const dateStr = day.toISOString().split("T")[0];
+
+    const dayTotal = records.reduce(function(sum, record) {
+      return record.date === dateStr ? sum + record.amount : sum;
+    }, 0);
+
+    const height = Math.min(dayTotal, 100);
+    html += `<span style="display:inline-block; width:30px; height:${height}px; background:darkolivegreen; margin:2px; vertical-align:bottom;" title="${dateStr}: $${dayTotal.toFixed(2)}"></span>`;
+  }
+
+  trendEl.innerHTML = html || "No data for last 7 days";
 }
