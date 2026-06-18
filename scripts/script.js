@@ -113,7 +113,25 @@ form.addEventListener("submit", function(event) {
 const tableBody = document.querySelector("#records-table tbody");
 
 const searchInput = document.getElementById("search-records");
+
+// this filters the table live as the user types a search pattern
 searchInput.addEventListener("input", function() {
+  renderRecords();
+});
+
+// this sorts buttons, reorders the records array and refreshes the table
+document.getElementById("sort-date").addEventListener("click", function() {
+  records.sort(function(a, b) { return new Date(a.date) - new Date(b.date); });
+  renderRecords();
+});
+
+document.getElementById("sort-description").addEventListener("click", function() {
+  records.sort(function(a, b) { return a.description.localeCompare(b.description); });
+  renderRecords();
+});
+
+document.getElementById("sort-amount").addEventListener("click", function() {
+  records.sort(function(a, b) { return a.amount - b.amount; });
   renderRecords();
 });
 
