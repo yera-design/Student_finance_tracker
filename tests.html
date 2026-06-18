@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Regex Tests</title>
+</head>
+<body>
+  <h1>Regex Validation Tests</h1>
+  <pre id="results"></pre>
+
+  <script>
+    const results = [];
+
+    function test(name, condition) {
+      results.push((condition ? "PASS" : "FAIL") + ": " + name);
+    }
+
+    // description pattern tests
+    const descriptionPattern = /^\S(?:.*\S)?$/;
+    test("description: rejects leading space", !descriptionPattern.test(" lunch"));
+    test("description: rejects trailing space", !descriptionPattern.test("lunch "));
+    test("description: accepts valid description", descriptionPattern.test("Lunch at cafeteria"));
+
+    // amount pattern tests
+    const amountPattern = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+    test("amount: accepts whole number", amountPattern.test("12"));
+    test("amount: accepts two decimals", amountPattern.test("12.50"));
+    test("amount: rejects three decimals", !amountPattern.test("12.999"));
+    test("amount: rejects letters", !amountPattern.test("abc"));
+
+    // date pattern tests
+    const datePattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    test("date: accepts valid date", datePattern.test("2025-09-29"));
+    test("date: rejects slashes", !datePattern.test("2025/09/29"));
+    test("date: rejects invalid month 13", !datePattern.test("2025-13-01"));
+
+    // category pattern tests
+    const categoryPattern = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
+    test("category: accepts single word", categoryPattern.test("Food"));
+    test("category: accepts hyphenated", categoryPattern.test("Non-Food"));
+    test("category: rejects numbers", !categoryPattern.test("Food123"));
+
+    // advanced: duplicate word pattern
+    const duplicateWordPattern = /\b(\w+)\s+\1\b/;
+    test("duplicate word: catches repeated word", duplicateWordPattern.test("the the meeting"));
+    test("duplicate word: passes normal text", !duplicateWordPattern.test("the meeting"));
+
+    document.getElementById("results").textContent = results.join("\n");
+  </script>
+</body>
+</html>
