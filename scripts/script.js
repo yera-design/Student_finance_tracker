@@ -210,7 +210,7 @@ function renderRecords() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td>${record.description}</td>
+      <td>${regex ? record.description.replace(regex, match => `<mark>${match}</mark>`) : record.description}</td>
       <td>${record.amount.toFixed(2)}</td>
       <td>${record.category}</td>
       <td>${record.date}</td>
@@ -269,6 +269,7 @@ function updateRecord(id, description, amount, category, date) {
 }
 // this removes a record from storage and updates the table display
 function deleteRecord(id) {
+  if (!confirm("Are you sure you want to delete this record?")) return;
   records = records.filter(function(record) {
     return record.id !== id;
   });
