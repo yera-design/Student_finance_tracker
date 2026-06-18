@@ -34,6 +34,7 @@ function createRecord(description, amount, category, date) {
 }
 // this Load all existing records when the application starts
 let records = loadRecords();
+let editingId = null;
 
 //this adds a new transaction record and save the updated list 
 function addRecord(description, amount, category, date) {
@@ -98,7 +99,12 @@ form.addEventListener("submit", function(event) {
   // this is for converting the amount from text input to a numeric value
   const parsedAmount = parseFloat(amount);
   // this adds the new record to the tracker and saves it to localstorage 
+  if (editingId) {
+  updateRecord(editingId, description, parsedAmount, category, date);
+  editingId = null;
+} else {
   addRecord(description, parsedAmount, category, date);
+}
   renderRecords();
   form.reset();
 });
@@ -128,4 +134,51 @@ function renderRecords() {
 }
 renderRecords();
 
+tableBody.addEventListener("click", function(event) {
+  if (event.target.classList.contains("delete-btn")) {
+    const id = event.target.dataset.id;
+    deleteRecord(id);
+  }
 
+  if (event.target.classList.contains("edit-btn")) {
+    const id = event.target.dataset.id;
+    startEdit(id);
+  }
+});
+
+// this loads the selected record into the form so it can be updated
+function startEdit(id) {
+  const record = records.find(function(r) {
+    return r.id === id;
+  });
+
+  document.getElementById("description").value = record.description;
+  document.getElementById("amount").value = record.amount;
+  document.getElementById("category").value = record.category;
+  document.getElementById("date").value = record.date;
+
+  editingId = id;
+}
+// this updates an existing record's fields and refreshes its updatedAt timestamp
+function updateRecord(id, description, amount, category, date) {
+  records = records.map(function(record) {
+    if (record.id === id) {
+      record.description = description;
+      record.amount = amount;
+      record.category = category;
+      record.date = date;
+      record.updatedAt = new Date().toISOString();
+    }
+    return record;
+  });
+
+  saveRecords(records);
+}
+// this removes a record from storage and updates the table display
+function deleteRecord(id) {
+  records = records.filter(function(record) {
+    return record.id !== id;
+  });
+  saveRecords(records);
+  renderRecords();
+}
