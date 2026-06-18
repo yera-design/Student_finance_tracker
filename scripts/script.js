@@ -106,16 +106,36 @@ form.addEventListener("submit", function(event) {
   addRecord(description, parsedAmount, category, date);
 }
   renderRecords();
+  updateDashboard()
   form.reset();
 });
 // this gets a reference to the table body where transaction records will be displayed
 const tableBody = document.querySelector("#records-table tbody");
 
+const searchInput = document.getElementById("search-records");
+searchInput.addEventListener("input", function() {
+  renderRecords();
+});
+
 // this displays all saved records in the table
 function renderRecords() {
   tableBody.innerHTML = "";
 
-  records.forEach(function(record) {
+  const searchValue = searchInput.value;
+  let regex = null;
+
+  try {
+    regex = searchValue ? new RegExp(searchValue, "i") : null;
+  } catch {
+    regex = null;
+  }
+
+  const filteredRecords = records.filter(function(record) {
+    if (!regex) return true;
+    return regex.test(record.description);
+  });
+
+  filteredRecords.forEach(function(record) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
@@ -132,7 +152,9 @@ function renderRecords() {
     tableBody.appendChild(row);
   });
 }
+
 renderRecords();
+updateDashboard();
 
 tableBody.addEventListener("click", function(event) {
   if (event.target.classList.contains("delete-btn")) {
@@ -181,4 +203,33 @@ function deleteRecord(id) {
   });
   saveRecords(records);
   renderRecords();
+  updateDashboard();
+}
+
+// this recalculates and displays total records, total spent, and top category
+function updateDashboard() {
+  document.getElementById("total-records").textContent = records.length;
+
+  const totalSpent = records.reduce(function(sum, record) {
+    return sum + record.amount;
+  }, 0);
+  document.getElementById("total-expenses").textContent = totalSpent.toFixed(2);
+
+  const categoryTotals = {};
+  records.forEach(function(record) {
+    if (!categoryTotals[record.category]) {
+      categoryTotals[record.category] = 0;
+    }
+    categoryTotals[record.category] += record.amount;
+  });
+
+  let topCategory = "None";
+  let topAmount = 0;
+  for (const category in categoryTotals) {
+    if (categoryTotals[category] > topAmount) {
+      topAmount = categoryTotals[category];
+      topCategory = category;
+    }
+  }
+  document.getElementById("top-category").textContent = topCategory;
 }
