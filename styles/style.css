@@ -362,8 +362,8 @@ body.dark-mode #trend-chart {
   background: #555;
   color: #f0f0f0;
 }
-/* styles settings subheadings with a left border accent */
-#settings .section-heading {
+/* applies to all section headings across the app */
+.section-heading {
   font-weight: bold;
   font-size: 1rem;
   border-left: 4px solid darkolivegreen;
@@ -371,6 +371,11 @@ body.dark-mode #trend-chart {
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   color: darkolivegreen;
+}
+
+body.dark-mode .section-heading {
+  color: #a8c060;
+  border-left-color: #a8c060;
 }
 
 body.dark-mode #settings .section-heading {
