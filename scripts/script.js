@@ -135,6 +135,11 @@ document.getElementById("sort-amount").addEventListener("click", function() {
   renderRecords();
 });
 
+// this applies the spending cap when the user clicks Save Settings
+document.getElementById("save-settings").addEventListener("click", function() {
+  updateDashboard();
+  alert("Settings saved!");
+});
 // this displays all saved records in the table
 function renderRecords() {
   tableBody.innerHTML = "";
@@ -250,4 +255,21 @@ function updateDashboard() {
     }
   }
   document.getElementById("top-category").textContent = topCategory;
+  // this checks spending against the cap and announces the result to screen readers
+const cap = parseFloat(document.getElementById("spending-cap").value);
+const capMessage = document.getElementById("cap-message");
+
+if (!isNaN(cap) && cap > 0) {
+  const remaining = cap - totalSpent;
+  if (remaining < 0) {
+    capMessage.setAttribute("aria-live", "assertive");
+    capMessage.textContent = "You have exceeded your budget by $" + Math.abs(remaining).toFixed(2);
+  } else {
+    capMessage.setAttribute("aria-live", "polite");
+    capMessage.textContent = "You have $" + remaining.toFixed(2) + " remaining this month.";
+  }
+} else {
+  capMessage.textContent = "";
+}
+
 }
