@@ -364,7 +364,8 @@ function updateDashboard() {
   const capMessage = document.getElementById("cap-message");
 
   if (!isNaN(cap) && cap > 0) {
-    const remaining = cap - totalSpent;
+    capMessage.style.display = "block";
+    const remaining = cap - totalSpent
     if (remaining < 0) {
       capMessage.setAttribute("aria-live", "assertive");
       capMessage.textContent = "You have exceeded your budget by $" + Math.abs(remaining).toFixed(2);
@@ -374,6 +375,7 @@ function updateDashboard() {
     }
   } else {
     capMessage.textContent = "";
+    capMessage.style.display = "none";
   }
 
   updateTrend();

@@ -227,13 +227,6 @@ section#records {
 #dashboard h2 {
   width: 100%;
 }
-/* this styles dashboard summary cards */
-#dashboard p {
-  background: #f4f4f4;
-  padding: 1rem;
-  border-left: 4px solid darkolivegreen;
-  border-radius: 4px;
-}
 /* Adding smooth hover and interaction transitions */
 nav a,
 form button,
