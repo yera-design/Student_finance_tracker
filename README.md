@@ -7,6 +7,10 @@ The app lets students log their expenses, organize them by category, and track t
 ## Live Demo
 [https://yera-design.github.io/Student_finance_tracker/]
 
+## Demo Video
+[https://youtu.be/tfkgH-z2o-s?si=0AUwuI_Zd98td7CR]
+
+
 ## How to Run
 1. Clone or download the repo
 2. Open `index.html` in your browser
@@ -58,13 +62,21 @@ Open `tests.html` in your browser. You'll see 15 regex tests, all should show PA
 ## Project Structure
 Student_finance_tracker/
 ├── index.html
+
 ├── styles/
+
 │ └── style.css
+
 ├── scripts/
+
 │ └── script.js
+
 ├── assets/
+
 ├── tests.html
+
 ├── seed.json
+
 └── README.md
 
 

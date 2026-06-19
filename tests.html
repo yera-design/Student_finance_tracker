@@ -40,7 +40,7 @@
     test("category: accepts hyphenated", categoryPattern.test("Non-Food"));
     test("category: rejects numbers", !categoryPattern.test("Food123"));
 
-    // this tests a pattern to catch duplicate words in a description which could indicate a typo
+    // advanced: duplicate word pattern
     const duplicateWordPattern = /\b(\w+)\s+\1\b/;
     test("duplicate word: catches repeated word", duplicateWordPattern.test("the the meeting"));
     test("duplicate word: passes normal text", !duplicateWordPattern.test("the meeting"));
