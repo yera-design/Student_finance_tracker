@@ -46,13 +46,13 @@ The app lets students log their expenses, organize them by category, and track t
 |---|---|
 | Tab | Move between buttons, inputs, and links |
 | Enter | Submit form or activate a button |
-| First Tab on page | Skip link appears — jumps straight to main content |
+| First Tab on page | Skip link appears, jumps straight to main content |
 
 ## Accessibility Notes
 - Proper semantic landmarks throughout: header, nav, main, section, footer
 - Every input has a label bound to it
 - Visible green focus outline on all interactive elements
-- ARIA live region on the budget cap message — screen readers announce it automatically
+- ARIA live region on the budget cap message, screen readers announce it automatically
 - Skip-to-content link for keyboard users
 - Table headers use `scope="col"` so screen readers can match data to its column
 
