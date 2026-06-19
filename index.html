@@ -64,6 +64,8 @@
         <h2>Records</h2>
         <label for="search-records">Search records:</label>
         <input type="text" id="search-records" placeholder="e.g. coffee">
+        <small id="search-count" style="color:#888; display:block; margin-top:0.25rem;"></small>
+        
         <!--These buttons allow users to sort the records table by different criteria-->
         <button type="button" id="sort-date">Sort by Date</button>
         <button type="button" id="sort-description">Sort by Description</button>
@@ -108,7 +110,7 @@
         </select>
 
         <label for="date">Date:</label>
-        <input type="text" id="date" required>
+        <input type="date" id="date" required>
         <p id="form-message" role="status" aria-live="polite"></p>
         <button type="submit">Save</button>
     </form>

@@ -218,12 +218,15 @@ document.getElementById("import-json").addEventListener("click", function() {
           return;
         }
         const valid = imported.every(function(r) {
-          return r.id && r.description && r.amount && r.category && r.date;
+            return r.id && r.description && r.amount && r.category && r.date;
         });
         if (!valid) {
-          alert("Invalid file: some records are missing required fields.");
-          return;
+            alert("Invalid file: some records are missing required fields.");
+            return;
         }
+            if (!confirm("This will replace all your current records. Are you sure you want to continue?")) return;
+            records = imported;
+        if (!confirm("This will replace all your current records. Are you sure you want to continue?")) return;
         records = imported;
         saveRecords(records);
         renderRecords();
@@ -255,9 +258,10 @@ function renderRecords() {
     if (!regex) return true;
     return regex.test(record.description);
   });
-
+  // shows how many records match the current search
+  document.getElementById("search-count") && (document.getElementById("search-count").textContent = regex ? `Showing ${filteredRecords.length} of ${records.length} records` : `${records.length} records total`);
   if (filteredRecords.length === 0) {
-  tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem; color:#888;">No records found. Add your first transaction below!</td></tr>';
+  tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem; color:#888;">No records found.</td></tr>';
   return;
 }
 
