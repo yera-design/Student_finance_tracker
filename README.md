@@ -5,7 +5,7 @@ This is a web app I built for my Web Development summative at ALU. I chose the S
 The app lets students log their expenses, organize them by category, and track their spending against a budget cap. After every record, you get an instant update on how much you have left, or how much you've gone over. No more surprises at the end of the month.
 
 ## Live Demo
-[https://github.com/yera-design/Student_finance_tracker]
+[https://yera-design.github.io/Student_finance_tracker/]
 
 ## How to Run
 1. Clone or download the repo
