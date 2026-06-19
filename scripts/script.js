@@ -270,8 +270,8 @@ function renderRecords() {
       <td>${record.category}</td>
       <td>${record.date}</td>
       <td>
-        <button type="button" class="edit-btn" data-id="${record.id}">Edit</button>
-        <button type="button" class="delete-btn" data-id="${record.id}">Delete</button>
+        <button type="button" class="edit-btn" data-id="${record.id}" aria-label="Edit ${record.description}">Edit</button>
+<button type="button" class="delete-btn" data-id="${record.id}" aria-label="Delete ${record.description}">Delete</button>
       </td>
     `;
 
