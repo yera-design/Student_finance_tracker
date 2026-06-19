@@ -223,7 +223,7 @@ section#records {
 #import-json:hover {
   background: #2c3e50;
 }
-/* this stacks dashboard summary cards vertically by default */
+/* makes the dashboard heading take full width so stat cards start below it */
 #dashboard h2 {
   width: 100%;
 }

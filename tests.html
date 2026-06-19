@@ -10,37 +10,37 @@
 
   <script>
     const results = [];
-
+    // this is a simple test function that logs the test name and whether it passed or failed
     function test(name, condition) {
       results.push((condition ? "PASS" : "FAIL") + ": " + name);
     }
 
-    // description pattern tests
+    // this tests the regex patterns used for validating transaction records in the app
     const descriptionPattern = /^\S(?:.*\S)?$/;
     test("description: rejects leading space", !descriptionPattern.test(" lunch"));
     test("description: rejects trailing space", !descriptionPattern.test("lunch "));
     test("description: accepts valid description", descriptionPattern.test("Lunch at cafeteria"));
 
-    // amount pattern tests
+    // this tests the amount pattern which allows whole numbers and decimals with up to 2 places
     const amountPattern = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
     test("amount: accepts whole number", amountPattern.test("12"));
     test("amount: accepts two decimals", amountPattern.test("12.50"));
     test("amount: rejects three decimals", !amountPattern.test("12.999"));
     test("amount: rejects letters", !amountPattern.test("abc"));
 
-    // date pattern tests
+    // this tests the date pattern
     const datePattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
     test("date: accepts valid date", datePattern.test("2025-09-29"));
     test("date: rejects slashes", !datePattern.test("2025/09/29"));
     test("date: rejects invalid month 13", !datePattern.test("2025-13-01"));
 
-    // category pattern tests
+    // this tests the category pattern which allows letters, spaces, and hyphens but no numbers
     const categoryPattern = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
     test("category: accepts single word", categoryPattern.test("Food"));
     test("category: accepts hyphenated", categoryPattern.test("Non-Food"));
     test("category: rejects numbers", !categoryPattern.test("Food123"));
 
-    // advanced: duplicate word pattern
+    // this tests a pattern to catch duplicate words in a description which could indicate a typo
     const duplicateWordPattern = /\b(\w+)\s+\1\b/;
     test("duplicate word: catches repeated word", duplicateWordPattern.test("the the meeting"));
     test("duplicate word: passes normal text", !duplicateWordPattern.test("the meeting"));

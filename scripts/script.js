@@ -34,6 +34,7 @@ function createRecord(description, amount, category, date) {
 }
 // this Load all existing records when the application starts
 let records = loadRecords();
+// this tracks which record is being edited, null means adding a new one
 let editingId = null;
 
 //this adds a new transaction record and save the updated list 
@@ -42,7 +43,7 @@ function addRecord(description, amount, category, date) {
   records.push(newRecord);
   saveRecords(records);
 } 
-//this defines validation rules to ensure transaction data is entered in the correct format
+// this defines validation rules to ensure transaction data is entered in the correct format
 const descriptionPattern = /^\S(?:.*\S)?$/;
 const amountPattern = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
 const datePattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
@@ -99,20 +100,25 @@ form.addEventListener("submit", function(event) {
   // this is for converting the amount from text input to a numeric value
   const parsedAmount = parseFloat(amount);
   // this adds the new record to the tracker and saves it to localstorage 
+  
+  const wasEditing = editingId ? true : false;
+
   if (editingId) {
-  updateRecord(editingId, description, parsedAmount, category, date);
-  editingId = null;
+   updateRecord(editingId, description, parsedAmount, category, date);
+   editingId = null;
 } else {
-  addRecord(description, parsedAmount, category, date);
+   addRecord(description, parsedAmount, category, date);
 }
-  renderRecords();
-  updateDashboard()
-  // show success message after adding or editing a record
-  const formMessage = document.getElementById("form-message");
-  formMessage.textContent = editingId ? "Record updated successfully!" : "Record added successfully!";
-  formMessage.style.color = "green";
-  setTimeout(function() { formMessage.textContent = ""; }, 3000);
-  form.reset();
+
+renderRecords();
+updateDashboard();
+
+// this shows success message after adding or editing a record
+const formMessage = document.getElementById("form-message");
+formMessage.textContent = wasEditing ? "Record updated successfully!" : "Record added successfully!";
+formMessage.style.color = "green";
+setTimeout(function() { formMessage.textContent = ""; }, 3000);
+form.reset();
 });
 // this gets a reference to the table body where transaction records will be displayed
 const tableBody = document.querySelector("#records-table tbody");
@@ -176,7 +182,7 @@ document.getElementById("convert-eur").addEventListener("click", function() {
   document.getElementById("eur-result").textContent = (amount * rate).toFixed(2) + " EUR";
 });
 
-/// this switches theme based on dropdown selection and saves the preference
+// this switches theme based on dropdown selection and saves the preference
 document.getElementById("theme-toggle").addEventListener("change", function() {
   const isDark = this.value === "dark";
   document.body.classList.toggle("dark-mode", isDark);
@@ -224,8 +230,6 @@ document.getElementById("import-json").addEventListener("click", function() {
             alert("Invalid file: some records are missing required fields.");
             return;
         }
-            if (!confirm("This will replace all your current records. Are you sure you want to continue?")) return;
-            records = imported;
         if (!confirm("This will replace all your current records. Are you sure you want to continue?")) return;
         records = imported;
         saveRecords(records);
@@ -258,7 +262,7 @@ function renderRecords() {
     if (!regex) return true;
     return regex.test(record.description);
   });
-  // shows how many records match the current search
+  // this shows how many records match the current search
   document.getElementById("search-count") && (document.getElementById("search-count").textContent = regex ? `Showing ${filteredRecords.length} of ${records.length} records` : `${records.length} records total`);
   if (filteredRecords.length === 0) {
   tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem; color:#888;">No records found.</td></tr>';
@@ -285,7 +289,7 @@ function renderRecords() {
 
 renderRecords();
 updateDashboard();
-
+// this listens for clicks on edit and delete buttons using event delegation
 tableBody.addEventListener("click", function(event) {
   if (event.target.classList.contains("delete-btn")) {
     const id = event.target.dataset.id;
@@ -310,7 +314,10 @@ function startEdit(id) {
   document.getElementById("date").value = record.date;
 
   editingId = id;
+  // this scrolls the page to the add/edit form so user can see it after clicking edit
+  document.getElementById("add-edit").scrollIntoView({ behavior: "smooth" });
 }
+ 
 // this updates an existing record's fields and refreshes its updatedAt timestamp
 function updateRecord(id, description, amount, category, date) {
   records = records.map(function(record) {
