@@ -4,6 +4,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+}
 /* Setting the main font, text color, and comfortable line spacing for readability */
 body {
   font-family: Arial, sans-serif;
@@ -32,6 +35,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 /*this removes bullet points and set the navigation background color*/
 nav ul {
@@ -56,11 +62,41 @@ nav a:hover {
   background:  #2c3e50;
 }
 /* this is for switching nav links to an horizontal layout on larger screens */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0.75rem 1rem;
+  }
+
   nav ul {
     display: flex;
-    justify-content: center;
-    gap: 1rem;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  nav a {
+    padding: 0.3rem 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  header h1 {
+    font-size: 1.1rem;
+  }
+
+  section {
+    margin: 0.5rem 1rem;
+    padding: 1rem;
+  }
+
+  form input,
+  #category {
+    width: 100%;
+  }
+
+  #stat-cards {
+    flex-direction: column;
   }
 }
 /*this adds spacing around each content section and a light border to separate them visually */
@@ -227,52 +263,79 @@ input:focus {
 }
 /* dark mode styles applied when body has dark-mode class */
 body.dark-mode {
-  background: #1a1a1a;
-  color: #f0f0f0;
+  background: #0d0d0d;
+  color: #e0e0e0;
 }
 
 body.dark-mode header {
-  background: #1a1a1a;
+  background: #111111;
+  border-bottom: 1px solid #222;
 }
 
 body.dark-mode nav ul {
-  background: #2a2a2a;
+  background: transparent;
 }
 
 body.dark-mode section {
-  background: #2a2a2a;
-  border: 1px solid #333;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  background: #1a1a1a;
+  border: 1px solid #222;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
-body.dark-mode #dashboard p {
-  background: #2a2a2a;
+body.dark-mode #stat-cards p {
+  background: #222;
+  color: #e0e0e0;
 }
 
-body.dark-mode table {
-  color: #f0f0f0;
+body.dark-mode #trend-chart {
+  background: transparent;
+  border: none;
 }
 
-body.dark-mode td {
-  border-bottom: 1px solid #333;
-}
 body.dark-mode #trend-chart h3 {
   color: #a8c060;
 }
-/* this makes about text visible in dark mode */
-body.dark-mode #about p {
-  color: #f0f0f0;
+
+body.dark-mode table {
+  color: #e0e0e0;
 }
+
+body.dark-mode td {
+  border-bottom: 1px solid #2a2a2a;
+}
+
+body.dark-mode thead {
+  background: #2a3a1a;
+}
+
+body.dark-mode form input,
+body.dark-mode #settings input,
+body.dark-mode #search-records,
+body.dark-mode #category {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #333;
+}
+
+body.dark-mode section h2,
+body.dark-mode section h3,
+body.dark-mode form label {
+  color: #a8c060;
+}
+
 body.dark-mode .section-heading {
   color: #a8c060;
   border-left-color: #a8c060;
 }
-body.dark-mode form input,
-body.dark-mode #settings input,
-body.dark-mode #search-records {
-  background: #2a2a2a;
-  color: #f0f0f0;
-  border: 1px solid #444;
+
+body.dark-mode #about p {
+  color: #e0e0e0;
+}
+
+body.dark-mode #theme-toggle {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #333;
 }
 /* styles convert buttons to match the app's button design */
 #convert-rwf,
@@ -329,13 +392,16 @@ body.dark-mode #search-records {
 /* encloses the trend chart in a card */
 #trend-chart {
   background: #f4f4f4;
-  border-left: 4px solid darkolivegreen;
   border-radius: 4px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 1rem;
+  width: fit-content;
+  min-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 /* styles the theme dropdown to match the app's input design */
 #theme-toggle {
@@ -357,10 +423,6 @@ footer {
   padding: 1rem;
   color: #666;
   font-size: 0.9rem;
-}
-body.dark-mode #trend-chart {
-  background: #555;
-  color: #f0f0f0;
 }
 /* applies to all section headings across the app */
 .section-heading {
@@ -388,8 +450,31 @@ body.dark-mode #settings .section-heading {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: black;
+  color: darkolivegreen;
+  text-align: left;
   border-left: 4px solid darkolivegreen;
   padding-left: 0.5rem;
   margin-bottom: 0.5rem;
+  width: 100%;
+}
+/* styles the category dropdown to match form inputs */
+#category {
+  width: 60%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+
+#category:focus {
+  outline: 3px solid darkolivegreen;
+  outline-offset: 2px;
+}
+
+body.dark-mode #category {
+  background: #2a2a2a;
+  color: #f0f0f0;
+  border: 1px solid #444;
 }

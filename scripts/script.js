@@ -65,8 +65,8 @@ function validateInputs(description, amount, category, date) {
     errors.push("Amount must be a valid number (e.g. 30.67).");
   }
 
-  if (!categoryPattern.test(category)) {
-    errors.push("Category must contain only letters, spaces, or hyphens.");
+  if (!category) {
+  errors.push("Please select a category.");
   }
 
   if (!datePattern.test(date)) {
@@ -107,6 +107,11 @@ form.addEventListener("submit", function(event) {
 }
   renderRecords();
   updateDashboard()
+  // show success message after adding or editing a record
+  const formMessage = document.getElementById("form-message");
+  formMessage.textContent = editingId ? "Record updated successfully!" : "Record added successfully!";
+  formMessage.style.color = "green";
+  setTimeout(function() { formMessage.textContent = ""; }, 3000);
   form.reset();
 });
 // this gets a reference to the table body where transaction records will be displayed
@@ -236,6 +241,7 @@ document.getElementById("import-json").addEventListener("click", function() {
 function renderRecords() {
   tableBody.innerHTML = "";
 
+
   const searchValue = searchInput.value;
   let regex = null;
 
@@ -250,12 +256,17 @@ function renderRecords() {
     return regex.test(record.description);
   });
 
+  if (filteredRecords.length === 0) {
+  tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:2rem; color:#888;">No records found. Add your first transaction below!</td></tr>';
+  return;
+}
+
   filteredRecords.forEach(function(record) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
       <td>${regex ? record.description.replace(regex, match => `<mark>${match}</mark>`) : record.description}</td>
-      <td>${record.amount.toFixed(2)}</td>
+      <td>$${record.amount.toFixed(2)}</td>
       <td>${record.category}</td>
       <td>${record.date}</td>
       <td>
@@ -329,7 +340,7 @@ function updateDashboard() {
   const totalSpent = records.reduce(function(sum, record) {
     return sum + record.amount;
   }, 0);
-  document.getElementById("total-expenses").textContent = totalSpent.toFixed(2);
+  document.getElementById("total-expenses").textContent = "$" + totalSpent.toFixed(2);
 
   const categoryTotals = {};
   records.forEach(function(record) {
